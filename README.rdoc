@@ -1,3 +1,17 @@
 == rcron
 
 A gem that provides...
+
+== Example
+
+ rcron do
+   
+   job '* * * * *' do
+     # do something ...
+   end
+   
+   job '10 */4 * * *' do
+     # do something ...
+   end
+   
+ end
