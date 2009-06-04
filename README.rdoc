@@ -3,7 +3,7 @@
 A gem that provides...
 
 == Example
-
+ # sample_cron.rb
  rcron do
    
    job '* * * * *' do
@@ -15,3 +15,6 @@ A gem that provides...
    end
    
  end
+
+ # command line..
+ rcron sample_cron.rb
