@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'optparse'
+require File.join(File.dirname(__FILE__),'/../lib/rcron')
+
+# 実行
+def run(argv)
+  
+  rcron_files = []
+  
+  OptionParser.new do |opt|
+    rcron_files = argv
+  end
+
+  # parse rcron files
+  rcron_files.each do |rcron_file|
+    require rcron_file
+  end
+
+  RCron::Suite.instance.run
+  
+end
+
+run(ARGV)
