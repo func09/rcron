@@ -25,9 +25,10 @@ module RCron
           begin
             puts 'interval...'
             @jobs.each do |job|
-              p job
+              job.task.call if job.excutable?
             end
           rescue => e
+            raise e
           end
           sleep 1
         end
@@ -41,6 +42,22 @@ module RCron
     attr_accessor :schedule, :task
     def initialize(schedule,task)
       self.schedule, self.task = schedule, task
+    end
+    def excutable?
+      now = Time.now
+      min, hour, day, month, wday = schedule.to_s.split(/\s/)
+      if wday == '*' or wday.to_i == now.wday
+        if month == '*' or month.to_i == now.month
+          if day == '*' or day.to_i == now.day
+            if hour == '*' or hour.to_i == now.hour
+              if min == '*' or min.to_i == now.min
+                return true
+              end
+            end
+          end
+        end
+      end
+      false
     end
   end
   
